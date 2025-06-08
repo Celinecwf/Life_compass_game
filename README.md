@@ -1,15 +1,1 @@
-# Life_compass_game
-生命羅盤
-[摩羯座](https://raw.githubusercontent.com/your_username/your_repo/main/images/摩羯座_星座守護卡.jpg)
-[水瓶座](https://raw.githubusercontent.com/your_username/your_repo/main/images/水瓶座_星座守護卡.jpg)
-[雙魚座](https://raw.githubusercontent.com/your_username/your_repo/main/images/雙魚座_星座守護卡.jpg)
-[牡羊座](https://raw.githubusercontent.com/your_username/your_repo/main/images/牡羊座_星座守護卡.jpg)
-[金牛座](https://raw.githubusercontent.com/your_username/your_repo/main/images/金牛座_星座守護卡.jpg)
-[雙子座](https://raw.githubusercontent.com/your_username/your_repo/main/images/雙子座_星座守護卡.jpg)
-[獅子座](https://raw.githubusercontent.com/your_username/your_repo/main/images/獅子座_星座守護卡.jpg)
-[巨蟹座](https://raw.githubusercontent.com/your_username/your_repo/main/images/巨蟹座_星座守護卡.jpg)
-[天秤座](https://raw.githubusercontent.com/your_username/your_repo/main/images/天秤座_星座守護卡.jpg)
-[處女座](https://raw.githubusercontent.com/your_username/your_repo/main/images/處女座_星座守護卡.jpg)
-[天蠍座](https://raw.githubusercontent.com/your_username/your_repo/main/images/天蠍座_星座守護卡.jpg)
-[射手座](https://raw.githubusercontent.com/your_username/your_repo/main/images/射手座_星座守護卡.jpg)
-[國泰](https://raw.githubusercontent.com/your_username/your_repo/main/images/國泰logo.jpg)
+
