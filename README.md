@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
@@ -318,7 +317,7 @@
 
         @keyframes btn-pulse {
             0% { transform: scale(0); opacity: 1; }
-            100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+            100% { transform: scale(2); opacity: 0; }
         }
 
         /* 測驗問題樣式 */
@@ -477,7 +476,7 @@
             background: linear-gradient(45deg, #FFD700, #FFA500); /* 金色漸變 */
             border-radius: 12px;
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.7); /* 金色光暈 */
-            color: #0F1E2A; /* 深藍色文字，在亮色背景上保持可讀性 */
+            color: black; /* 修改為黑色 */
             font-size: 1.5em; /* 更大字體 */
             font-weight: bold;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.3); /* 輕微文字陰影 */
@@ -490,22 +489,14 @@
         }
         /* 新增的祝福名稱高亮樣式 */
         .blessing-name-highlight {
-            color: #0A1B1C; /* 顯眼黑色 */
+            color: black; /* 修改為黑色 */
             font-size: 1.2em; /* 保持原有的字體大小放大效果 */
             text-shadow: none; /* 移除光暈效果，確保黑色清晰 */
         }
 
-        /* 摩羯座圖片樣式 */
-        /* #capricorn-blessing-image img {
-            max-width: 150px;
-            height: auto;
-            border-radius: 8px;
-            margin-top: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        } */
-        /* 新增所有星座圖片容器的共同樣式 */
+        /* 所有星座圖片容器的共同樣式 */
         .zodiac-image-container img {
-            max-width: 150px; /* 圖片最大寬度 */
+            max-width: 300px; /* 圖片最大寬度，依用戶要求 */
             height: auto;
             border-radius: 8px;
             margin-top: 15px;
@@ -589,12 +580,10 @@
             <p>您已走過人生旅程的初期，現在是檢視您的保障並做出調整的時刻。您當前擁有 <span id="turning-point-assets" class="status-item"></span> 資產。是否需要加購保險，以應對未來的挑戰？</p>
             <div class="insurance-list" id="turning-point-insurances">
                 </div>
-            <div class="options-container">
-                <button id="confirm-turning-point-purchase" disabled>確認加購，繼續旅程</button>
-            </div>
-             <p class="message hidden" id="turning-point-message"></p>
+            <p class="message hidden" id="turning-point-message"></p>
 
-            <div id="life-challenge-simulator" style="margin-top: 30px; padding: 20px; background-color: rgba(65, 105, 225, 0.2); border-radius: 10px; border: 1px solid #4169E1; box-shadow: 0 0 15px rgba(65, 105, 225, 0.4);">
+            <!-- 人生挑戰模擬器區塊，已移動到「確認加購」按鈕上方 -->
+            <div id="life-challenge-simulator" style="padding: 20px; background-color: rgba(65, 105, 225, 0.2); border-radius: 10px; border: 1px solid #4169E1; box-shadow: 0 0 15px rgba(65, 105, 225, 0.4);">
                 <h3>【人生挑戰模擬器】</h3>
                 <p>您的人生來到一個十字路口，擺在眼前的是【留學深造】、【自主創業】、【步入婚姻】三條道路，您會選擇哪一個？您的選擇將影響未來的旅程挑戰！</p>
                 <div class="options-container">
@@ -603,6 +592,10 @@
                     <button id="choose-marriage" data-challenge="marriage">選擇：步入婚姻</button>
                 </div>
                 <p id="challenge-outcome-message" class="message hidden" style="margin-top: 15px;"></p>
+            </div>
+
+            <div class="options-container">
+                <button id="confirm-turning-point-purchase" disabled>確認加購，繼續旅程</button>
             </div>
         </div>
 
@@ -629,18 +622,18 @@
                 <p id="blessing-card-text"></p>
                 <!-- 放置所有星座圖片的容器 -->
                 <div id="zodiac-blessing-images-container">
-                    <img id="aries-image" class="zodiac-image-container hidden" src="" alt="牡羊座圖片">
-                    <img id="taurus-image" class="zodiac-image-container hidden" src="" alt="金牛座圖片">
-                    <img id="gemini-image" class="zodiac-image-container hidden" src="" alt="雙子座圖片">
-                    <img id="cancer-image" class="zodiac-image-container hidden" src="" alt="巨蟹座圖片">
-                    <img id="leo-image" class="zodiac-image-container hidden" src="" alt="獅子座圖片">
-                    <img id="virgo-image" class="zodiac-image-container hidden" src="" alt="處女座圖片">
-                    <img id="libra-image" class="zodiac-image-container hidden" src="" alt="天秤座圖片">
-                    <img id="scorpio-image" class="zodiac-image-container hidden" src="" alt="天蠍座圖片">
-                    <img id="sagittarius-image" class="zodiac-image-container hidden" src="" alt="射手座圖片">
-                    <img id="capricorn-image" class="zodiac-image-container hidden" src="" alt="摩羯座圖片">
-                    <img id="aquarius-image" class="zodiac-image-container hidden" src="" alt="水瓶座圖片">
-                    <img id="pisces-image" class="zodiac-image-container hidden" src="" alt="雙魚座圖片">
+                    <img id="aries-image" class="zodiac-image-container hidden" src="" alt="牡羊座圖片" width="300">
+                    <img id="taurus-image" class="zodiac-image-container hidden" src="" alt="金牛座圖片" width="300">
+                    <img id="gemini-image" class="zodiac-image-container hidden" src="" alt="雙子座圖片" width="300">
+                    <img id="cancer-image" class="zodiac-image-container hidden" src="" alt="巨蟹座圖片" width="300">
+                    <img id="leo-image" class="zodiac-image-container hidden" src="" alt="獅子座圖片" width="300">
+                    <img id="virgo-image" class="zodiac-image-container hidden" src="" alt="處女座圖片" width="300">
+                    <img id="libra-image" class="zodiac-image-container hidden" src="" alt="天秤座圖片" width="300">
+                    <img id="scorpio-image" class="zodiac-image-container hidden" src="" alt="天蠍座圖片" width="300">
+                    <img id="sagittarius-image" class="zodiac-image-container hidden" src="" alt="射手座圖片" width="300">
+                    <img id="capricorn-image" class="zodiac-image-container hidden" src="" alt="摩羯座圖片" width="300">
+                    <img id="aquarius-image" class="zodiac-image-container hidden" src="" alt="水瓶座圖片" width="300">
+                    <img id="pisces-image" class="zodiac-image-container hidden" src="" alt="雙魚座圖片" width="300">
                 </div>
             </div>
             <div id="leaderboard-section">
@@ -672,7 +665,8 @@
             <div class="rebirth-content">
                 <h2>【危急時刻：獲得新生！】</h2>
                 <p>您的資產或健康已達極限，生命羅盤即將停擺！</p>
-                <img src="https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/國泰logo.jpg" alt="Cathay Life Logo" class="cathay-logo">
+                <!-- 國泰人壽 Logo 已更新為 Cathay_logo.png 且寬度為 150 -->
+                <img src="https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/Cathay_logo.png" alt="國泰人壽 Logo" width="150" class="cathay-logo">
                 <p>國泰人壽在此為您提供一次「時光倒流」的機會，讓您重獲新生，繼續未完的旅程！</p>
                 <button class="rebirth-button" id="activateRebirth">獲得新生 / 時光倒流</button>
             </div>
@@ -1064,7 +1058,6 @@
 
         // 星座幸運祝福卡元素
         const blessingCardText = document.getElementById('blessing-card-text');
-        // const capricornBlessingImage = document.getElementById('capricorn-blessing-image'); // 這個已不再需要，由通用邏輯取代
         const zodiacBlessingImagesContainer = document.getElementById('zodiac-blessing-images-container'); // 所有星座圖片的容器
 
 
@@ -1102,7 +1095,7 @@
                 health: 0,
                 ownedInsurances: new Set(), // 使用Set來存儲已購買的保險ID
                 cluesCollected: new Set(), // 使用Set來存儲已收集的線索
-                rebirthUsed: false, // 標記是否已使用過「獲得新生」功能
+                rebirthUsed: false,
                 luckyEscapesCount: 0, // 重置
                 riskJudgmentScore: 0, // 重置
                 protectionCompletionScore: 0, // 重置
@@ -1933,7 +1926,7 @@
 
             // 顯示星座幸運祝福卡和對應圖片
             // 隱藏所有星座圖片
-            document.querySelectorAll('.zodiac-image-container').forEach(img => img.classList.add('hidden'));
+            document.querySelectorAll('.zodiac-image-container img').forEach(img => img.classList.add('hidden'));
 
             if (player.zodiacBlessing) {
                 blessingCardText.innerHTML = `您的本命星【<span class="blessing-name-highlight">${player.zodiacBlessing.name}</span>】持續守護著您！<br>${player.zodiacBlessing.desc}`;
