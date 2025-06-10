@@ -285,7 +285,7 @@
         }
 
         .rebirth-button {
-            background: linear-gradient(90deg, #FF6B6B, #FF8E8E); /* 鮮豔的漸變色 */
+            background: linear-gradient(90deg, #FF0000, #FF4444); /* 更鮮豔的紅色漸變 */
             color: white;
             border: none;
             padding: 15px 30px;
@@ -297,7 +297,7 @@
         }
 
         .rebirth-button:hover {
-            background: linear-gradient(90deg, #FF4B4B, #FF7E7E);
+            background: linear-gradient(90deg, #CC0000, #EE0000); /* hover時更深的紅 */
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
         }
@@ -487,12 +487,28 @@
             margin-bottom: 10px;
             text-shadow: none; /* 移除發光，保持清晰 */
         }
-        /* 新增的祝福名稱高亮樣式 */
+        /* 祝福名稱高亮樣式 (用於本命星名稱) */
         .blessing-name-highlight {
             color: black; /* 修改為黑色 */
-            font-size: 1.2em; /* 保持原有的字體大小放大效果 */
+            font-size: 1.8em; /* 顯著加大字體 */
+            font-weight: 900; /* 最粗的字體 */
             text-shadow: none; /* 移除光暈效果，確保黑色清晰 */
         }
+        /* 祝福短語後綴樣式 (用於「持續守護著您！」) */
+        .blessing-phrase-suffix {
+            color: black; /* 確保黑色 */
+            font-size: 1.4em; /* 比主體文字稍大，比名稱小 */
+            font-weight: 800; /* 較粗的字體 */
+            text-shadow: none;
+        }
+        /* 祝福描述文字高亮樣式 (用於描述文字) */
+        .blessing-description-highlight {
+            color: black; /* 確保黑色 */
+            font-size: 1.3em; /* 比主體文字略大，比短語後綴小 */
+            font-weight: 800; /* 較粗的字體 */
+            text-shadow: none;
+        }
+
 
         /* 所有星座圖片容器的共同樣式 */
         .zodiac-image-container img {
@@ -665,8 +681,7 @@
             <div class="rebirth-content">
                 <h2>【危急時刻：獲得新生！】</h2>
                 <p>您的資產或健康已達極限，生命羅盤即將停擺！</p>
-                <!-- 國泰人壽 Logo 已更新為 Cathay_logo.png 且寬度為 150 -->
-                <img src="https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/Cathay_logo.png" alt="國泰人壽 Logo" width="150" class="cathay-logo">
+                <!-- 國泰人壽 Logo 已移除 -->
                 <p>國泰人壽在此為您提供一次「時光倒流」的機會，讓您重獲新生，繼續未完的旅程！</p>
                 <button class="rebirth-button" id="activateRebirth">獲得新生 / 時光倒流</button>
             </div>
@@ -724,18 +739,18 @@
 
         // 星座與角色映射 (包含月份日期區間、本命星祝福和圖片 URL)
         const zodiacToRoleMap = {
-            "aries": { name: "牡羊座", dates: "3/21-4/19", role: initialStates.ambitious_pioneer, desc: "熱情衝動，勇於冒險，行動力強。", blessing: { name: "勇者之財", type: "asset_per_round", value: 1500, desc: "每回合額外獲得少量資產。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/牡羊座_星座守護卡.jpg" },
-            "taurus": { name: "金牛座", dates: "4/20-5/20", role: initialStates.steady_guardian, desc: "務實穩健，重視物質安全與累積。", blessing: { name: "豐饒之體", type: "health_per_round", value: 3, desc: "每回合額外恢復少量健康。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/金牛座_星座守護卡.jpg" },
-            "gemini": { name: "雙子座", dates: "5/21-6/20", role: initialStates.harmonious_co_creator, desc: "聰明多變，好奇心強，適應力好。", blessing: { name: "智慧之語", type: "clue_chance", value: 0.2, desc: "更容易發現守護者線索，線索事件機率提升20%。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/雙子座_星座守護卡.jpg" },
-            "cancer": { name: "巨蟹座", dates: "6/21-7/22", role: initialStates.steady_guardian, desc: "情感豐富，戀家顧家，重視安全感。", blessing: { name: "家庭之盾", type: "health_per_round", value: 4, desc: "家庭相關風險對健康影響較小，每回合額外恢復健康。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/巨蟹座_星座守護卡.jpg" },
-            "leo": { name: "獅子座", dates: "7/23-8/22", role: initialStates.ambitious_pioneer, desc: "自信大方，熱愛生活，樂於展現自我。", blessing: { name: "榮耀之光", type: "asset_per_round", value: 2000, desc: "事業發展更順遂，每回合額外獲得較多資產。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/獅子座_星座守護卡.jpg" },
-            "virgo": { name: "處女座", dates: "8/23-9/22", role: initialStates.wise_planner, desc: "細心謹慎，追求完美，善於分析和規劃。", blessing: { name: "分析之眼", type: "quiz_bonus_asset", value: 2000, desc: "答對保險題時獲得更多資產獎勵。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/處女座_星座守護卡.jpg" },
-            "libra": { name: "天秤座", dates: "9/23-10/22", role: initialStates.harmonious_co_creator, desc: "追求和諧與平衡，善於溝通。", blessing: { name: "和諧之境", type: "health_per_round", value: 3, desc: "人際關係帶來健康增益，每回合額外恢復健康。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/天秤座_星座守護卡.jpg" },
-            "scorpio": { name: "天蠍座", dates: "10/23-11/21", role: initialStates.empathic_connector, desc: "洞察力強，直覺敏銳，重視掌控與深度。", blessing: { name: "深邃之韌", type: "risk_mitigation_percent", value: 0.05, desc: "在風險事件中，損失稍微減輕5%。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/天蠍座_星座守護卡.jpg" },
-            "sagittarius": { name: "射手座", dates: "11/22-12/21", role: initialStates.free_explorer, desc: "樂觀開朗，熱愛自由與探索，喜歡旅行。", blessing: { name: "冒險之運", type: "asset_per_round", value: 1800, desc: "探索帶來意外之財，每回合額外獲得少量資產。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/射手座_星座守護卡.jpg" },
-            "capricorn": { name: "摩羯座", dates: "12/22-1/19", role: initialStates.wise_planner, desc: "有責任感，務實謹慎，目標明確，擅長長期規劃。", blessing: { name: "堅實之基", type: "protection_score_boost", value: 0.1, desc: "保險保障效果更佳，最終保障完成度分數更高。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/摩羯座_星座守護卡.jpg" },
-            "aquarius": { name: "水瓶座", dates: "1/20-2/18", role: initialStates.free_explorer, desc: "獨立創新，思維獨特，重視自由與群體利益。", blessing: { name: "創新之庇", type: "lucky_escape_boost_count", value: 1, desc: "更容易從困境中幸運逃脫一次(最終計分+1)。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/水瓶座_星座守護卡.jpg" },
-            "pisces": { name: "雙魚座", dates: "2/19-3/20", role: initialStates.empathic_connector, desc: "敏感浪漫，富有同情心，直覺力強。", blessing: { name: "療癒之泉", type: "health_per_round", value: 5, desc: "心靈平靜帶來健康，每回合額外恢復較多健康。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/雙魚座_星座守護卡.jpg" }
+            "aries": { name: "牡羊座", dates: "3/21-4/19", role: initialStates.ambitious_pioneer, desc: "熱情衝動，勇於冒險，行動力強。", blessing: { name: "勇者之財", type: "asset_per_round", value: 1500, desc: "每回合額外獲得少量資產。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/牡羊座_星座祝福卡.jpg" },
+            "taurus": { name: "金牛座", dates: "4/20-5/20", role: initialStates.steady_guardian, desc: "務實穩健，重視物質安全與累積。", blessing: { name: "豐饒之體", type: "health_per_round", value: 3, desc: "每回合額外恢復少量健康。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/金牛座_星座祝福卡.jpg" },
+            "gemini": { name: "雙子座", dates: "5/21-6/20", role: initialStates.harmonious_co_creator, desc: "聰明多變，好奇心強，適應力好。", blessing: { name: "智慧之語", type: "clue_chance", value: 0.2, desc: "更容易發現守護者線索，線索事件機率提升20%。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/雙子座_星座祝福卡.jpg" },
+            "cancer": { name: "巨蟹座", dates: "6/21-7/22", role: initialStates.steady_guardian, desc: "情感豐富，戀家顧家，重視安全感。", blessing: { name: "家庭之盾", type: "health_per_round", value: 4, desc: "家庭相關風險對健康影響較小，每回合額外恢復健康。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/巨蟹座_星座祝福卡.jpg" },
+            "leo": { name: "獅子座", dates: "7/23-8/22", role: initialStates.ambitious_pioneer, desc: "自信大方，熱愛生活，樂於展現自我。", blessing: { name: "榮耀之光", type: "asset_per_round", value: 2000, desc: "事業發展更順遂，每回合額外獲得較多資產。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/獅子座_星座祝福卡.jpg" },
+            "virgo": { name: "處女座", dates: "8/23-9/22", role: initialStates.wise_planner, desc: "細心謹慎，追求完美，善於分析和規劃。", blessing: { name: "分析之眼", type: "quiz_bonus_asset", value: 2000, desc: "答對保險題時獲得更多資產獎勵。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/處女座_星座祝福卡.jpg" },
+            "libra": { name: "天秤座", dates: "9/23-10/22", role: initialStates.harmonious_co_creator, desc: "追求和諧與平衡，善於溝通。", blessing: { name: "和諧之境", type: "health_per_round", value: 3, desc: "人際關係帶來健康增益，每回合額外恢復健康。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/天秤座_星座祝福卡.jpg" },
+            "scorpio": { name: "天蠍座", dates: "10/23-11/21", role: initialStates.empathic_connector, desc: "洞察力強，直覺敏銳，重視掌控與深度。", blessing: { name: "深邃之韌", type: "risk_mitigation_percent", value: 0.05, desc: "在風險事件中，損失稍微減輕5%。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/天蠍座_星座祝福卡.jpg" },
+            "sagittarius": { name: "射手座", dates: "11/22-12/21", role: initialStates.free_explorer, desc: "樂觀開朗，熱愛自由與探索，喜歡旅行。", blessing: { name: "冒險之運", type: "asset_per_round", value: 1800, desc: "探索帶來意外之財，每回合額外獲得少量資產。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/射手座_星座祝福卡.jpg" },
+            "capricorn": { name: "摩羯座", dates: "12/22-1/19", role: initialStates.wise_planner, desc: "有責任感，務實謹慎，目標明確，擅長長期規劃。", blessing: { name: "堅實之基", type: "protection_score_boost", value: 0.1, desc: "保險保障效果更佳，最終保障完成度分數更高。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/摩羯座_星座祝福卡.jpg" },
+            "aquarius": { name: "水瓶座", dates: "1/20-2/18", role: initialStates.free_explorer, desc: "獨立創新，思維獨特，重視自由與群體利益。", blessing: { name: "創新之庇", type: "lucky_escape_boost_count", value: 1, desc: "更容易從困境中幸運逃脫一次(最終計分+1)。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/水瓶座_星座祝福卡.jpg" },
+            "pisces": { name: "雙魚座", dates: "2/19-3/20", role: initialStates.empathic_connector, desc: "敏感浪漫，富有同情心，直覺力強。", blessing: { name: "療癒之泉", type: "health_per_round", value: 5, desc: "心靈平靜帶來健康，每回合額外恢復較多健康。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/雙魚座_星座祝福卡.jpg" }
         };
 
         // 可購買的保險種類
@@ -1032,7 +1047,7 @@
         const lifeChallengeSimulator = document.getElementById('life-challenge-simulator');
         const chooseStudyButton = document.getElementById('choose-study');
         const chooseBusinessButton = document.getElementById('choose-business');
-        const chooseMarriageButton = document.getElementById('choose-marriage'); // 修正此行錯誤
+        const chooseMarriageButton = document.getElementById('choose-marriage');
         const challengeOutcomeMessage = document.getElementById('challenge-outcome-message');
 
 
@@ -1095,11 +1110,11 @@
                 health: 0,
                 ownedInsurances: new Set(), // 使用Set來存儲已購買的保險ID
                 cluesCollected: new Set(), // 使用Set來存儲已收集的線索
-                rebirthUsed: false,
-                luckyEscapesCount: 0, // 重置
-                riskJudgmentScore: 0, // 重置
-                protectionCompletionScore: 0, // 重置
-                zodiacBlessing: null // 重置
+                rebirthUsed: false, // 標記是否已使用過「獲得新生」功能
+                luckyEscapesCount: 0, // 新增：幸運逃脫次數
+                riskJudgmentScore: 0, // 新增：風險判斷力分數 (答對題數)
+                protectionCompletionScore: 0, // 新增：保障完成度分數 (擁有保險數)
+                zodiacBlessing: null // 新增：儲存玩家的本命星祝福
             };
             currentStageIndex = 0; // 從第一階段開始
             currentQuizQuestionIndex = 0; // 從第0題開始
@@ -1929,7 +1944,8 @@
             document.querySelectorAll('.zodiac-image-container img').forEach(img => img.classList.add('hidden'));
 
             if (player.zodiacBlessing) {
-                blessingCardText.innerHTML = `您的本命星【<span class="blessing-name-highlight">${player.zodiacBlessing.name}</span>】持續守護著您！<br>${player.zodiacBlessing.desc}`;
+                // 修改這裡，將「持續守護著您！」包裹在新定義的 blessing-phrase-suffix span 中
+                blessingCardText.innerHTML = `您的本命星【<span class="blessing-name-highlight">${player.zodiacBlessing.name}</span>】<span class="blessing-phrase-suffix">持續守護著您！</span><br><span class="blessing-description-highlight">${player.zodiacBlessing.desc}</span>`;
                 
                 // 根據 player.zodiacId 找到對應的圖片元素並顯示
                 const zodiacImageElement = document.getElementById(`${player.zodiacId}-image`);
