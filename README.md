@@ -115,7 +115,8 @@
         /* 選擇按鈕和行動按鈕 */
         .options-container button,
         .next-button,
-        .start-button {
+        .start-button,
+        .external-link-button { /* Added .external-link-button here */
             /* 綠色漸變按鈕，電玩感 */
             background: linear-gradient(90deg, #10B981, #34D399);
             color: white;
@@ -133,7 +134,8 @@
 
         .options-container button:hover,
         .next-button:hover,
-        .start-button:hover {
+        .start-button:hover,
+        .external-link-button:hover { /* Added .external-link-button here */
             background-color: #0F9F6F; /* 更深的綠色 */
             transform: translateY(-3px); /* 輕微上浮 */
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); /* 更強陰影 */
@@ -141,12 +143,14 @@
 
         .options-container button:active,
         .next-button:active,
-        .start-button:active {
+        .start-button:active,
+        .external-link-button:active { /* Added .external-link-button here */
             transform: translateY(0); /* 按下效果 */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
-        .options-container button:disabled {
+        .options-container button:disabled,
+        .external-link-button:disabled { /* Added .external-link-button here */
             background-color: #7f8c8d; /* 灰色禁用狀態 */
             cursor: not-allowed;
             transform: none;
@@ -156,7 +160,8 @@
         /* 按鈕點擊脈衝效果 */
         .options-container button::after,
         .next-button::after,
-        .start-button::after {
+        .start-button::after,
+        .external-link-button::after { /* Added .external-link-button here */
             content: '';
             position: absolute;
             top: 50%;
@@ -171,7 +176,8 @@
         }
         .options-container button:active::after,
         .next-button:active::after,
-        .start-button:active::after {
+        .start-button:active::after,
+        .external-link-button:active::after { /* Added .external-link-button here */
             animation: btn-pulse 0.5s ease-out;
         }
 
@@ -675,6 +681,8 @@
             <button class="social-share-button" id="shareResultButton">分享我的生命羅盤成就</button>
             <p id="copy-message" class="copy-message hidden">成就文字已複製到剪貼簿！</p>
             <button class="start-button" id="restartGameButton">重新啟動羅盤 (再玩一次)</button>
+            <!-- New button for Cathay Life official website -->
+            <button class="external-link-button" id="cathayLifeWebsiteButton">前往國泰人壽官方網站</button>
         </div>
 
         <div id="rebirth-modal" class="rebirth-modal hidden">
@@ -1085,6 +1093,9 @@
         // 獲得新生彈窗的元素
         const rebirthModal = document.getElementById('rebirth-modal');
         const activateRebirthButton = document.getElementById('activateRebirth');
+
+        // Cathay Life Website button
+        const cathayLifeWebsiteButton = document.getElementById('cathayLifeWebsiteButton');
 
         // --- 遊戲流程控制 ---
 
@@ -2017,6 +2028,11 @@
             renderZodiacSelection(); // 渲染星座選擇按鈕
             roleDescription.textContent = "請點擊您的星座按鈕了解更多。"; // Reset desc
             zodiacBlessingDescription.textContent = ""; // Reset blessing desc
+        });
+
+        // Add event listener for the Cathay Life Website button
+        cathayLifeWebsiteButton.addEventListener('click', () => {
+            window.open('https://www.cathaylife.com.tw/cathaylife/', '_blank'); // Open in new tab
         });
 
         // 初始載入：先設定 Firebase，然後初始化遊戲
