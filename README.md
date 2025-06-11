@@ -112,11 +112,10 @@
             border-bottom: none;
         }
 
-        /* 選擇按鈕和行動按鈕 */
+        /* 選擇按鈕和行動按鈕的共同樣式 */
         .options-container button,
         .next-button,
-        .start-button,
-        .external-link-button { /* Added .external-link-button here */
+        .start-button {
             /* 綠色漸變按鈕，電玩感 */
             background: linear-gradient(90deg, #10B981, #34D399);
             color: white;
@@ -134,8 +133,7 @@
 
         .options-container button:hover,
         .next-button:hover,
-        .start-button:hover,
-        .external-link-button:hover { /* Added .external-link-button here */
+        .start-button:hover {
             background-color: #0F9F6F; /* 更深的綠色 */
             transform: translateY(-3px); /* 輕微上浮 */
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); /* 更強陰影 */
@@ -143,25 +141,57 @@
 
         .options-container button:active,
         .next-button:active,
-        .start-button:active,
-        .external-link-button:active { /* Added .external-link-button here */
+        .start-button:active {
             transform: translateY(0); /* 按下效果 */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
-        .options-container button:disabled,
-        .external-link-button:disabled { /* Added .external-link-button here */
+        .options-container button:disabled {
             background-color: #7f8c8d; /* 灰色禁用狀態 */
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
         }
 
+        /* 前往國泰人壽官方網站 按鈕的特殊樣式 - 鮮豔黃色 */
+        .external-link-button {
+            background: linear-gradient(90deg, #FFD700, #FFEA00); /* 鮮豔黃色漸變 */
+            color: #333; /* 深色文字，確保可讀性 */
+            border: none;
+            padding: 12px 25px;
+            margin: 10px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4); /* 黃色陰影 */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .external-link-button:hover {
+            background: linear-gradient(90deg, #FFC107, #FFD700); /* hover時更深的黃 */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255, 215, 0, 0.6); /* 更強黃色陰影 */
+        }
+
+        .external-link-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(255, 215, 0, 0.3);
+        }
+         .external-link-button:disabled {
+            background-color: #7f8c8d; /* 灰色禁用狀態 */
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+
         /* 按鈕點擊脈衝效果 */
         .options-container button::after,
         .next-button::after,
         .start-button::after,
-        .external-link-button::after { /* Added .external-link-button here */
+        .external-link-button::after {
             content: '';
             position: absolute;
             top: 50%;
@@ -177,7 +207,7 @@
         .options-container button:active::after,
         .next-button:active::after,
         .start-button:active::after,
-        .external-link-button:active::after { /* Added .external-link-button here */
+        .external-link-button:active::after {
             animation: btn-pulse 0.5s ease-out;
         }
 
@@ -488,7 +518,7 @@
             text-shadow: 1px 1px 3px rgba(0,0,0,0.3); /* 輕微文字陰影 */
         }
         #zodiac-blessing-card h3 {
-            color: #1A4B4C; /* 深綠色，與金色搭配 */
+            color: black; /* 修改為黑色，原為 #1A4B4C */
             font-size: 1.8em;
             margin-bottom: 10px;
             text-shadow: none; /* 移除發光，保持清晰 */
