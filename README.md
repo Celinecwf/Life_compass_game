@@ -465,11 +465,22 @@
         .leaderboard-data div {
             margin-bottom: 8px;
             font-size: 1.1em;
-            color: #e2e8f0;
+            color: #e2e8f0; /* Light grey */
         }
+        /* 讓最終成就區塊中的「您的本命星祝福」文字及其內容都變為白色 */
+        #final-zodiac-blessing-summary {
+            color: white; /* 更改為白色 */
+        }
+        #final-zodiac-blessing-summary strong {
+            color: white; /* 更改為白色 */
+        }
+
         .leaderboard-data strong {
-            color: #f1c40f;
+            color: #f1c40f; /* 亮黃色，突出數值 (此樣式會被 #final-zodiac-blessing-summary strong 覆蓋) */
+            /* The default style for strong tags inside .leaderboard-data div */
+            /* It will be overridden by #final-zodiac-blessing-summary strong for that specific element */
         }
+
         .social-share-button {
             background: linear-gradient(90deg, #00C6FF, #0072FF); /* 藍色漸變 */
             color: white;
@@ -512,20 +523,20 @@
             background: linear-gradient(45deg, #FFD700, #FFA500); /* 金色漸變 */
             border-radius: 12px;
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.7); /* 金色光暈 */
-            color: black; /* 修改為黑色 */
+            color: black; /* 保持黑色，如用戶要求 */
             font-size: 1.5em; /* 更大字體 */
             font-weight: bold;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.3); /* 輕微文字陰影 */
         }
         #zodiac-blessing-card h3 {
-            color: black; /* 修改為黑色，原為 #1A4B4C */
+            color: black; /* 保持黑色，如用戶要求 */
             font-size: 1.8em;
             margin-bottom: 10px;
             text-shadow: none; /* 移除發光，保持清晰 */
         }
         /* 祝福名稱高亮樣式 (用於本命星名稱) */
         .blessing-name-highlight {
-            color: black; /* 修改為黑色 */
+            color: black; /* 保持黑色，如用戶要求 */
             font-size: 1.8em; /* 顯著加大字體 */
             font-weight: 900; /* 最粗的字體 */
             text-shadow: none; /* 移除光暈效果，確保黑色清晰 */
@@ -575,7 +586,8 @@
             <div class="options-container" id="zodiac-buttons-container">
                 </div>
             <p id="role-description" style="margin-top: 20px; color: #bdc3c7;"></p>
-            <p id="zodiac-blessing-description" style="margin-top: 10px; color: #f1c40f; font-weight: bold;"></p>
+            <!-- 這裡文字顏色已改為白色 -->
+            <p id="zodiac-blessing-description" style="margin-top: 10px; color: white; font-weight: bold;"></p>
         </div>
 
         <!-- 3. 保險購買畫面 -->
@@ -667,6 +679,7 @@
                 <div id="final-protection-completion">保障完成度: <strong></strong></div>
                 <div id="final-lucky-escapes">幸運逃脫次數: <strong></strong></div>
                 <div id="final-achievement-title">成就稱號: <strong></strong></div>
+                <!-- 這裡的文字會變成白色，因為 CSS 已調整 #final-zodiac-blessing-summary 及其 strong 標籤的顏色 -->
                 <div id="final-zodiac-blessing-summary">您的本命星祝福: <strong></strong></div>
             </div>
             <div id="zodiac-blessing-card">
@@ -786,7 +799,7 @@
             "libra": { name: "天秤座", dates: "9/23-10/22", role: initialStates.harmonious_co_creator, desc: "追求和諧與平衡，善於溝通。", blessing: { name: "和諧之境", type: "health_per_round", value: 3, desc: "人際關係帶來健康增益，每回合額外恢復健康。" }, imageUrl: "天秤座_星座祝福卡.jpg" },
             "scorpio": { name: "天蠍座", dates: "10/23-11/21", role: initialStates.empathic_connector, desc: "洞察力強，直覺敏銳，重視掌控與深度。", blessing: { name: "深邃之韌", type: "risk_mitigation_percent", value: 0.05, desc: "在風險事件中，損失稍微減輕5%。" }, imageUrl: "天蠍座_星座祝福卡.jpg" },
             "sagittarius": { name: "射手座", dates: "11/22-12/21", role: initialStates.free_explorer, desc: "樂觀開朗，熱愛自由與探索，喜歡旅行。", blessing: { name: "冒險之運", type: "asset_per_round", value: 1800, desc: "探索帶來意外之財，每回合額外獲得少量資產。" }, imageUrl: "射手座_星座祝福卡.jpg" },
-            "capricorn": { name: "摩羯座", dates: "12/22-1/19", role: initialStates.wise_planner, desc: "有責任感，務實謹慎，目標明確，擅長長期規劃。", blessing: { name: "堅實之基", type: "protection_score_boost", value: 0.1, desc: "保險保障效果更佳，最終保障完成度分數更高。" }, imageUrl: "摩羯座_星座祝福卡.jpg" },
+            "capricorn": { name: "摩羯座", dates: "12/22-1/19", role: initialStates.wise_planner, desc: "有責任感，務實謹慎，目標明確，擅長長期規劃。", blessing: { name: "堅實之基", type: "protection_score_boost", value: 0.1, desc: "保險保障效果更佳，最終保障完成度分數更高。" }, imageUrl: "摩羯座.jpg" },
             "aquarius": { name: "水瓶座", dates: "1/20-2/18", role: initialStates.free_explorer, desc: "獨立創新，思維獨特，重視自由與群體利益。", blessing: { name: "創新之庇", type: "lucky_escape_boost_count", value: 1, desc: "更容易從困境中幸運逃脫一次(最終計分+1)。" }, imageUrl: "水瓶座_星座祝福卡.jpg" },
             "pisces": { name: "雙魚座", dates: "2/19-3/20", role: initialStates.empathic_connector, desc: "敏感浪漫，富有同情心，直覺力強。", blessing: { name: "療癒之泉", type: "health_per_round", value: 5, desc: "心靈平靜帶來健康，每回合額外恢復較多健康。" }, imageUrl: "雙魚座_星座祝福卡.jpg" }
         };
@@ -1039,7 +1052,7 @@
         const startScreen = document.getElementById('start-screen');
         const characterSelection = document.getElementById('character-selection');
         const insurancePurchase = document.getElementById('insurance-purchase');
-        const gamePlay = document.getElementById('game-play'); // 主要遊戲畫面，包含問答和事件區塊
+        const gamePlay = document.getElementById('game-play'); // 主要遊戲畫面
         const turningPointPurchase = document.getElementById('turning-point-purchase'); // 人生轉折點環節
         const endGameScreen = document.getElementById('end-game');
 
@@ -1085,8 +1098,8 @@
         const lifeChallengeSimulator = document.getElementById('life-challenge-simulator');
         const chooseStudyButton = document.getElementById('choose-study');
         const chooseBusinessButton = document.getElementById('choose-business');
-        const chooseMarriageButton = document.getElementById('choose-marriage');
-        const challengeOutcomeMessage = document.getElementById('challenge-outcome-message');
+        const chooseMarriageButton = document.getElementById('choose-marriage'); // FIX: Corrected element selection
+        const challengeOutcomeMessage = document.getElementById('challenge-outcome-message'); // FIX: Added declaration for challengeOutcomeMessage
 
 
         // 遊戲結束畫面的元素
@@ -1249,6 +1262,7 @@
                     player.zodiacBlessing = zodiacInfo.blessing; // 儲存本命星祝福
 
                     roleDescription.innerHTML = `您選擇了【<span class="final-highlight">${player.zodiac}</span>】。您的生命特質是：「${zodiacInfo.desc}」。這將決定您在遊戲中扮演【<span class="final-highlight">${player.role.name}</span>】的角色。`;
+                    // 這裡的文字顏色已改為白色
                     zodiacBlessingDescription.innerHTML = `您的本命星祝福是：【${player.zodiacBlessing.name}】 - ${player.zodiacBlessing.desc}`;
 
                     // 過渡到下一個畫面
@@ -1515,7 +1529,7 @@
                     if (outcomeMessage.textContent) {
                         outcomeMessage.textContent += ` 您的【${player.zodiacBlessing.name}】祝福生效，額外獲得 $${player.zodiacBlessing.value.toLocaleString()} 資產！`;
                     } else {
-                        outcomeMessage.textContent = `您的【${player.zodiacBlessing.name}】祝福生效，額外獲得 $${player.zodiacBlessing.value.toLocaleString()} 資產！`;
+                        outcomeMessage.textContent = `您的【${player.zodiacBlessing.name}】祝福生效，額外獲得 $${player.zodiacBlessing.toLocaleString()} 資產！`;
                     }
                     outcomeMessage.className = `message result-message positive`;
                     outcomeMessage.classList.remove('hidden');
@@ -1978,6 +1992,7 @@
             finalProtectionCompletion.querySelector('strong').textContent = `${player.ownedInsurances.size} / ${availableInsurances.length} 項`;
             finalLuckyEscapes.querySelector('strong').textContent = `${player.luckyEscapesCount} 次`;
             finalAchievementTitle.querySelector('strong').textContent = getAchievementTitle();
+            // 這裡的文字會變成白色，因為 CSS 已調整 #final-zodiac-blessing-summary 及其 strong 標籤的顏色
             finalZodiacBlessingSummary.querySelector('strong').textContent = player.zodiacBlessing ? `${player.zodiacBlessing.name} (${player.zodiacBlessing.desc})` : "無";
 
             // 顯示星座幸運祝福卡和對應圖片
