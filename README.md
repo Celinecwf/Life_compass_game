@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
@@ -747,18 +748,18 @@
 
         // 星座與角色映射 (包含月份日期區間、本命星祝福和圖片 URL)
         const zodiacToRoleMap = {
-            "aries": { name: "牡羊座", dates: "3/21-4/19", role: initialStates.ambitious_pioneer, desc: "熱情衝動，勇於冒險，行動力強。", blessing: { name: "勇者之財", type: "asset_per_round", value: 1500, desc: "每回合額外獲得少量資產。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/牡羊座_星座祝福卡.jpg" },
-            "taurus": { name: "金牛座", dates: "4/20-5/20", role: initialStates.steady_guardian, desc: "務實穩健，重視物質安全與累積。", blessing: { name: "豐饒之體", type: "health_per_round", value: 3, desc: "每回合額外恢復少量健康。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/金牛座_星座祝福卡.jpg" },
-            "gemini": { name: "雙子座", dates: "5/21-6/20", role: initialStates.harmonious_co_creator, desc: "聰明多變，好奇心強，適應力好。", blessing: { name: "智慧之語", type: "clue_chance", value: 0.2, desc: "更容易發現守護者線索，線索事件機率提升20%。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/雙子座_星座祝福卡.jpg" },
-            "cancer": { name: "巨蟹座", dates: "6/21-7/22", role: initialStates.steady_guardian, desc: "情感豐富，戀家顧家，重視安全感。", blessing: { name: "家庭之盾", type: "health_per_round", value: 4, desc: "家庭相關風險對健康影響較小，每回合額外恢復健康。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/巨蟹座_星座祝福卡.jpg" },
-            "leo": { name: "獅子座", dates: "7/23-8/22", role: initialStates.ambitious_pioneer, desc: "自信大方，熱愛生活，樂於展現自我。", blessing: { name: "榮耀之光", type: "asset_per_round", value: 2000, desc: "事業發展更順遂，每回合額外獲得較多資產。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/獅子座_星座祝福卡.jpg" },
-            "virgo": { name: "處女座", dates: "8/23-9/22", role: initialStates.wise_planner, desc: "細心謹慎，追求完美，善於分析和規劃。", blessing: { name: "分析之眼", type: "quiz_bonus_asset", value: 2000, desc: "答對保險題時獲得更多資產獎勵。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/處女座_星座祝福卡.jpg" },
-            "libra": { name: "天秤座", dates: "9/23-10/22", role: initialStates.harmonious_co_creator, desc: "追求和諧與平衡，善於溝通。", blessing: { name: "和諧之境", type: "health_per_round", value: 3, desc: "人際關係帶來健康增益，每回合額外恢復健康。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/天秤座_星座祝福卡.jpg" },
-            "scorpio": { name: "天蠍座", dates: "10/23-11/21", role: initialStates.empathic_connector, desc: "洞察力強，直覺敏銳，重視掌控與深度。", blessing: { name: "深邃之韌", type: "risk_mitigation_percent", value: 0.05, desc: "在風險事件中，損失稍微減輕5%。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/天蠍座_星座祝福卡.jpg" },
-            "sagittarius": { name: "射手座", dates: "11/22-12/21", role: initialStates.free_explorer, desc: "樂觀開朗，熱愛自由與探索，喜歡旅行。", blessing: { name: "冒險之運", type: "asset_per_round", value: 1800, desc: "探索帶來意外之財，每回合額外獲得少量資產。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/射手座_星座祝福卡.jpg" },
-            "capricorn": { name: "摩羯座", dates: "12/22-1/19", role: initialStates.wise_planner, desc: "有責任感，務實謹慎，目標明確，擅長長期規劃。", blessing: { name: "堅實之基", type: "protection_score_boost", value: 0.1, desc: "保險保障效果更佳，最終保障完成度分數更高。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/摩羯座_星座祝福卡.jpg" },
-            "aquarius": { name: "水瓶座", dates: "1/20-2/18", role: initialStates.free_explorer, desc: "獨立創新，思維獨特，重視自由與群體利益。", blessing: { name: "創新之庇", type: "lucky_escape_boost_count", value: 1, desc: "更容易從困境中幸運逃脫一次(最終計分+1)。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/水瓶座_星座祝福卡.jpg" },
-            "pisces": { name: "雙魚座", dates: "2/19-3/20", role: initialStates.empathic_connector, desc: "敏感浪漫，富有同情心，直覺力強。", blessing: { name: "療癒之泉", type: "health_per_round", value: 5, desc: "心靈平靜帶來健康，每回合額外恢復較多健康。" }, imageUrl: "https://raw.githubusercontent.com/Celinecwf/Life_compass_game/main/images/雙魚座_星座祝福卡.jpg" }
+            "aries": { name: "牡羊座", dates: "3/21-4/19", role: initialStates.ambitious_pioneer, desc: "熱情衝動，勇於冒險，行動力強。", blessing: { name: "勇者之財", type: "asset_per_round", value: 1500, desc: "每回合額外獲得少量資產。" }, imageUrl: "牡羊座_星座祝福卡.jpg" },
+            "taurus": { name: "金牛座", dates: "4/20-5/20", role: initialStates.steady_guardian, desc: "務實穩健，重視物質安全與累積。", blessing: { name: "豐饒之體", type: "health_per_round", value: 3, desc: "每回合額外恢復少量健康。" }, imageUrl: "金牛座_星座祝福卡.jpg" },
+            "gemini": { name: "雙子座", dates: "5/21-6/20", role: initialStates.harmonious_co_creator, desc: "聰明多變，好奇心強，適應力好。", blessing: { name: "智慧之語", type: "clue_chance", value: 0.2, desc: "更容易發現守護者線索，線索事件機率提升20%。" }, imageUrl: "雙子座_星座祝福卡.jpg" },
+            "cancer": { name: "巨蟹座", dates: "6/21-7/22", role: initialStates.steady_guardian, desc: "情感豐富，戀家顧家，重視安全感。", blessing: { name: "家庭之盾", type: "health_per_round", value: 4, desc: "家庭相關風險對健康影響較小，每回合額外恢復健康。" }, imageUrl: "巨蟹座_星座祝福卡.jpg" },
+            "leo": { name: "獅子座", dates: "7/23-8/22", role: initialStates.ambitious_pioneer, desc: "自信大方，熱愛生活，樂於展現自我。", blessing: { name: "榮耀之光", type: "asset_per_round", value: 2000, desc: "事業發展更順遂，每回合額外獲得較多資產。" }, imageUrl: "獅子座_星座祝福卡.jpg" },
+            "virgo": { name: "處女座", dates: "8/23-9/22", role: initialStates.wise_planner, desc: "細心謹慎，追求完美，善於分析和規劃。", blessing: { name: "分析之眼", type: "quiz_bonus_asset", value: 2000, desc: "答對保險題時獲得更多資產獎勵。" }, imageUrl: "處女座_星座祝福卡.jpg" },
+            "libra": { name: "天秤座", dates: "9/23-10/22", role: initialStates.harmonious_co_creator, desc: "追求和諧與平衡，善於溝通。", blessing: { name: "和諧之境", type: "health_per_round", value: 3, desc: "人際關係帶來健康增益，每回合額外恢復健康。" }, imageUrl: "天秤座_星座祝福卡.jpg" },
+            "scorpio": { name: "天蠍座", dates: "10/23-11/21", role: initialStates.empathic_connector, desc: "洞察力強，直覺敏銳，重視掌控與深度。", blessing: { name: "深邃之韌", type: "risk_mitigation_percent", value: 0.05, desc: "在風險事件中，損失稍微減輕5%。" }, imageUrl: "天蠍座_星座祝福卡.jpg" },
+            "sagittarius": { name: "射手座", dates: "11/22-12/21", role: initialStates.free_explorer, desc: "樂觀開朗，熱愛自由與探索，喜歡旅行。", blessing: { name: "冒險之運", type: "asset_per_round", value: 1800, desc: "探索帶來意外之財，每回合額外獲得少量資產。" }, imageUrl: "射手座_星座祝福卡.jpg" },
+            "capricorn": { name: "摩羯座", dates: "12/22-1/19", role: initialStates.wise_planner, desc: "有責任感，務實謹慎，目標明確，擅長長期規劃。", blessing: { name: "堅實之基", type: "protection_score_boost", value: 0.1, desc: "保險保障效果更佳，最終保障完成度分數更高。" }, imageUrl: "摩羯座_星座祝福卡.jpg" },
+            "aquarius": { name: "水瓶座", dates: "1/20-2/18", role: initialStates.free_explorer, desc: "獨立創新，思維獨特，重視自由與群體利益。", blessing: { name: "創新之庇", type: "lucky_escape_boost_count", value: 1, desc: "更容易從困境中幸運逃脫一次(最終計分+1)。" }, imageUrl: "水瓶座_星座祝福卡.jpg" },
+            "pisces": { name: "雙魚座", dates: "2/19-3/20", role: initialStates.empathic_connector, desc: "敏感浪漫，富有同情心，直覺力強。", blessing: { name: "療癒之泉", type: "health_per_round", value: 5, desc: "心靈平靜帶來健康，每回合額外恢復較多健康。" }, imageUrl: "雙魚座_星座祝福卡.jpg" }
         };
 
         // 可購買的保險種類
@@ -1963,7 +1964,15 @@
                 const zodiacInfo = zodiacToRoleMap[player.zodiacId];
 
                 if (zodiacImageElement && zodiacInfo && zodiacInfo.imageUrl) {
-                    zodiacImageElement.src = zodiacInfo.imageUrl; // 設定圖片來源
+                    // Check if the image source is a relative path or a full URL
+                    if (!zodiacInfo.imageUrl.startsWith('http')) {
+                        zodiacImageElement.src = zodiacInfo.imageUrl; // Set the image source if it's a relative path
+                    } else {
+                        // If it's still a full URL, we might need a fallback or a warning
+                        // For this specific request, we assume all are relative paths now.
+                        zodiacImageElement.src = zodiacInfo.imageUrl; 
+                        console.warn(`Image URL for ${player.zodiac} is still an absolute path: ${zodiacInfo.imageUrl}`);
+                    }
                     zodiacImageElement.classList.remove('hidden'); // 顯示對應圖片
                 } else {
                     console.warn(`無法找到或載入 ${player.zodiac} 的圖片。`);
