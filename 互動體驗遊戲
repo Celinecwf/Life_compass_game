@@ -583,11 +583,11 @@
         <div id="character-selection" class="hidden">
             <h2>選擇您的星座</h2>
             <p>您的星座將揭示您的人生特質，並決定您在遊戲中的初始角色。</p>
-            <div class="options-container" id="zodiac-buttons-container">
-                </div>
+            <!-- 這裡將 role-description 和 zodiac-blessing-description 移到按鈕上方 -->
             <p id="role-description" style="margin-top: 20px; color: #bdc3c7;"></p>
-            <!-- 這裡文字顏色已改為白色 -->
             <p id="zodiac-blessing-description" style="margin-top: 10px; color: white; font-weight: bold;"></p>
+            <div class="options-container" id="zodiac-buttons-container">
+            </div>
         </div>
 
         <!-- 3. 保險購買畫面 -->
@@ -649,11 +649,12 @@
             <!-- 人生挑戰模擬器區塊，已移動到「確認加購」按鈕上方 -->
             <div id="life-challenge-simulator" style="padding: 20px; background-color: rgba(65, 105, 225, 0.2); border-radius: 10px; border: 1px solid #4169E1; box-shadow: 0 0 15px rgba(65, 105, 225, 0.4);">
                 <h3>【人生挑戰模擬器】</h3>
-                <p>您的人生來到一個十字路口，擺在眼前的是【留學深造】、【自主創業】、【步入婚姻】三條道路，您會選擇哪一個？您的選擇將影響未來的旅程挑戰！</p>
+                <p>您的人生來到一個十字路口，擺在眼前的是【留學深造】、【自主創業】、【步入婚姻】、【職場上班族】四條道路，您會選擇哪一個？您的選擇將影響未來的旅程挑戰！</p>
                 <div class="options-container">
                     <button id="choose-study" data-challenge="study">選擇：留學深造</button>
                     <button id="choose-business" data-challenge="business">選擇：自主創業</button>
                     <button id="choose-marriage" data-challenge="marriage">選擇：步入婚姻</button>
+                    <button id="choose-office-worker" data-challenge="office_worker">選擇：職場上班族</button>
                 </div>
                 <p id="challenge-outcome-message" class="message hidden" style="margin-top: 15px;"></p>
             </div>
@@ -889,6 +890,22 @@
                 with_insurance: { assets: +20000, health: +5, msg: "有了儲蓄險或醫療險，這些意外支出得到有效緩解，讓您能更從容應對。", class: "positive" },
                 tags: ["marriage", "finance", "family"],
                 only_if_challenge: "marriage"
+            },
+            {
+                name: "職場過勞", desc: "長期高壓的工作讓您身心俱疲，健康嚴重下降，甚至影響工作表現。",
+                trigger: ["medical"], // 醫療險
+                no_insurance: { assets: -35000, health: -20, msg: "職場壓力讓您透支，健康亮起紅燈，醫療費用也成了負擔。" },
+                with_insurance: { assets: +10000, health: +5, msg: "幸好有醫療險，至少能負擔醫療費用，讓您有機會稍作休息。", class: "positive" },
+                tags: ["career", "health"],
+                only_if_challenge: "office_worker"
+            },
+            {
+                name: "公司裁員", desc: "由於市場變化，您所在的公司進行大規模裁員，您不幸成為其中一員，突然面臨失業。",
+                trigger: ["savings"], // 儲蓄險
+                no_insurance: { assets: -60000, health: -15, msg: "突如其來的失業讓您的財務陷入困境，尋找新工作壓力倍增。" },
+                with_insurance: { assets: +25000, health: +5, msg: "您有儲蓄險提供的應急資金，這讓您在尋找新工作期間能保持一定的生活品質。", class: "positive" },
+                tags: ["career", "finance"],
+                only_if_challenge: "office_worker"
             }
         ];
 
@@ -910,7 +927,9 @@
             { name: "健康生活習慣", desc: "您堅持運動和健康飲食，身體狀況良好。", assets: 0, health: +8 },
             { name: "找到打工機會", desc: "留學期間找到一份兼職，減輕了部分經濟壓力。", assets: +8000, health: +2, only_if_challenge: "study" },
             { name: "產品獲得好評", desc: "您創業的產品獲得市場初步好評，帶來了第一筆收入。", assets: +10000, health: +5, only_if_challenge: "business" },
-            { name: "伴侶送出驚喜", desc: "您的伴侶為您準備了小驚喜，讓您心情大好，幸福感滿滿。", assets: 0, health: +5, only_if_challenge: "marriage" }
+            { name: "伴侶送出驚喜", desc: "您的伴侶為您準備了小驚喜，讓您心情大好，幸福感滿滿。", assets: 0, health: +5, only_if_challenge: "marriage" },
+            { name: "年度績效獎金", desc: "您在工作中表現出色，獲得了一筆豐厚的年度績效獎金！", assets: +20000, health: +5, only_if_challenge: "office_worker" },
+            { name: "升職加薪", desc: "您的職業生涯邁上新台階，獲得了升職機會和薪資調漲！", assets: +25000, health: +10, only_if_challenge: "office_worker" }
         ];
 
         // 10 題保險情境選擇題 (已縮短至10題)
@@ -1098,8 +1117,9 @@
         const lifeChallengeSimulator = document.getElementById('life-challenge-simulator');
         const chooseStudyButton = document.getElementById('choose-study');
         const chooseBusinessButton = document.getElementById('choose-business');
-        const chooseMarriageButton = document.getElementById('choose-marriage'); // FIX: Corrected element selection
-        const challengeOutcomeMessage = document.getElementById('challenge-outcome-message'); // FIX: Added declaration for challengeOutcomeMessage
+        const chooseMarriageButton = document.getElementById('choose-marriage');
+        const chooseOfficeWorkerButton = document.getElementById('choose-office-worker');
+        const challengeOutcomeMessage = document.getElementById('challenge-outcome-message');
 
 
         // 遊戲結束畫面的元素
@@ -1407,6 +1427,7 @@
                 chooseStudyButton.disabled = false;
                 chooseBusinessButton.disabled = false;
                 chooseMarriageButton.disabled = false;
+                chooseOfficeWorkerButton.disabled = false; // Enable new button
                 challengeOutcomeMessage.classList.add('hidden'); // 隱藏結果訊息
                 confirmTurningPointPurchaseButton.disabled = true; // 預設禁用加購確認按鈕
                 // 這裡不遞增 currentQuizQuestionIndex 或呼叫 startNextStage，遊戲流程暫停
@@ -1464,7 +1485,7 @@
         }
 
         // 人生挑戰選擇事件
-        [chooseStudyButton, chooseBusinessButton, chooseMarriageButton].forEach(button => {
+        [chooseStudyButton, chooseBusinessButton, chooseMarriageButton, chooseOfficeWorkerButton].forEach(button => { // Add new button to array
             button.addEventListener('click', (event) => {
                 playerChallenge = event.target.dataset.challenge; // 儲存玩家選擇的挑戰
                 let message = "";
@@ -1472,6 +1493,7 @@
                 chooseStudyButton.disabled = true;
                 chooseBusinessButton.disabled = true;
                 chooseMarriageButton.disabled = true;
+                chooseOfficeWorkerButton.disabled = true; // Disable new button
 
                 switch (playerChallenge) {
                     case "study":
@@ -1482,6 +1504,9 @@
                         break;
                     case "marriage":
                         message = "您選擇了【步入婚姻】！這意味著新的責任與家庭的建立，但也可能帶來預期外的家庭開銷。";
+                        break;
+                    case "office_worker":
+                        message = "您選擇了【職場上班族】！這條路提供穩定，但也可能面臨職場壓力與裁員風險。";
                         break;
                 }
                 challengeOutcomeMessage.textContent = message;
@@ -1816,6 +1841,8 @@
                 recommendations.push("因創業挑戰，更建議：高額意外險、儲蓄險（創業備用金）。");
             } else if (playerChallenge === "marriage") {
                 recommendations.push("因婚姻挑戰，更建議：家庭保障型壽險、醫療險、子女教育金險。");
+            } else if (playerChallenge === "office_worker") { // New recommendation for office worker
+                recommendations.push("因職場挑戰，更建議：醫療險、重大疾病險、失能扶助險。");
             }
 
 
