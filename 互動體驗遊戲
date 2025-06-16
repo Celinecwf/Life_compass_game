@@ -769,11 +769,20 @@
                     } else {
                         await signInAnonymously(auth);
                     }
-                    userId = auth.currentUser?.uid || crypto.randomUUID(); // Get UID or generate random for anonymous
+                    userId = auth.currentUser?.uid || crypto.randomUUID();
                     console.log("Firebase initialized. User ID:", userId);
+                    // 立即更新使用者 ID 顯示
+                    const displayUserIdElement = document.getElementById('display-user-id');
+                    if (displayUserIdElement) {
+                        displayUserIdElement.textContent = userId;
+                    }
                 } catch (error) {
                     console.error("Firebase authentication failed:", error);
                     userId = crypto.randomUUID(); // Fallback to random ID if auth fails
+                    const displayUserIdElement = document.getElementById('display-user-id');
+                    if (displayUserIdElement) {
+                        displayUserIdElement.textContent = userId; // Fallback ID 也顯示
+                    }
                 }
             }
         }
@@ -1258,7 +1267,7 @@
 
         // 渲染星座選擇按鈕
         function renderZodiacSelection() {
-            zodiacButtonsContainer.innerHTML = '';
+            zodiacButtonsContainer.innerHTML = ''; // 清空舊選項
             for (const zodiacId in zodiacToRoleMap) {
                 const zodiac = zodiacToRoleMap[zodiacId];
                 const button = document.createElement('button');
@@ -1485,7 +1494,7 @@
         }
 
         // 人生挑戰選擇事件
-        [chooseStudyButton, chooseBusinessButton, chooseMarriageButton, chooseOfficeWorkerButton].forEach(button => { // Add new button to array
+        [chooseStudyButton, chooseBusinessButton, chooseMarriageButton, chooseOfficeWorkerButton].forEach(button => {
             button.addEventListener('click', (event) => {
                 playerChallenge = event.target.dataset.challenge; // 儲存玩家選擇的挑戰
                 let message = "";
@@ -1493,7 +1502,7 @@
                 chooseStudyButton.disabled = true;
                 chooseBusinessButton.disabled = true;
                 chooseMarriageButton.disabled = true;
-                chooseOfficeWorkerButton.disabled = true; // Disable new button
+                chooseOfficeWorkerButton.disabled = true;
 
                 switch (playerChallenge) {
                     case "study":
@@ -1554,7 +1563,7 @@
                     if (outcomeMessage.textContent) {
                         outcomeMessage.textContent += ` 您的【${player.zodiacBlessing.name}】祝福生效，額外獲得 $${player.zodiacBlessing.value.toLocaleString()} 資產！`;
                     } else {
-                        outcomeMessage.textContent = `您的【${player.zodiacBlessing.name}】祝福生效，額外獲得 $${player.zodiacBlessing.toLocaleString()} 資產！`;
+                        outcomeMessage.textContent = `您的【${player.zodiacBlessing.name}】祝福生效，額外獲得 $${player.zodiacBlessing.value.toLocaleString()} 資產！`;
                     }
                     outcomeMessage.className = `message result-message positive`;
                     outcomeMessage.classList.remove('hidden');
@@ -1914,7 +1923,7 @@
             }
 
             leaderboardList.innerHTML = '<li>載入排行榜中...</li>';
-            displayUserId.textContent = userId; // 顯示當前使用者的 ID
+            // displayUserId.textContent = userId; // 已移到 setupFirebase 中立即更新
 
             try {
                 const leaderboardCollectionRef = collection(db, `artifacts/${appId}/public/data/leaderboard`);
