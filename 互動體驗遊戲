@@ -771,18 +771,9 @@
                     }
                     userId = auth.currentUser?.uid || crypto.randomUUID();
                     console.log("Firebase initialized. User ID:", userId);
-                    // 立即更新使用者 ID 顯示
-                    const displayUserIdElement = document.getElementById('display-user-id');
-                    if (displayUserIdElement) {
-                        displayUserIdElement.textContent = userId;
-                    }
                 } catch (error) {
                     console.error("Firebase authentication failed:", error);
                     userId = crypto.randomUUID(); // Fallback to random ID if auth fails
-                    const displayUserIdElement = document.getElementById('display-user-id');
-                    if (displayUserIdElement) {
-                        displayUserIdElement.textContent = userId; // Fallback ID 也顯示
-                    }
                 }
             }
         }
@@ -1910,7 +1901,8 @@
                     timestamp: new Date()
                 });
                 console.log("Score saved to leaderboard!");
-            } catch (e) {
+            }
+            catch (e) {
                 console.error("Error adding document to leaderboard: ", e);
             }
         }
@@ -1923,7 +1915,8 @@
             }
 
             leaderboardList.innerHTML = '<li>載入排行榜中...</li>';
-            // displayUserId.textContent = userId; // 已移到 setupFirebase 中立即更新
+            // 確保在載入排行榜時，使用者 ID 也同步顯示
+            displayUserId.textContent = userId; 
 
             try {
                 const leaderboardCollectionRef = collection(db, `artifacts/${appId}/public/data/leaderboard`);
