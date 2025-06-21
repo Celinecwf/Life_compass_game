@@ -702,12 +702,7 @@
                     <img id="pisces-image" class="zodiac-image-container hidden" src="" alt="雙魚座圖片" width="300">
                 </div>
             </div>
-            <div id="leaderboard-section">
-                <h3 style="color: #6EE7B7;">【生命羅盤成就榜】</h3>
-                <p style="color: #e2e8f0; font-size: 0.9em;">您的使用者ID: <span id="display-user-id" style="font-weight: bold; color: #f1c40f; word-break: break-all;"></span></p>
-                <ul id="leaderboard-list">
-                    </ul>
-            </div>
+            <!-- REMOVED: Leaderboard Section -->
 
             <div class="insurance-list">
                 <h3>您擁有的保險契約:</h3>
@@ -1116,6 +1111,7 @@
         const turningPointMessage = document.getElementById('turning-point-message');
         const lifeChallengeSimulator = document.getElementById('life-challenge-simulator');
         const chooseStudyButton = document.getElementById('choose-study');
+        // FIXED: Corrected the erroneous assignment for chooseBusinessButton
         const chooseBusinessButton = document.getElementById('choose-business');
         const chooseMarriageButton = document.getElementById('choose-marriage');
         const chooseOfficeWorkerButton = document.getElementById('choose-office-worker');
@@ -1133,7 +1129,7 @@
         const recommendedProductsText = document.getElementById('recommended-products-text');
         const restartGameButton = document.getElementById('restartGameButton');
 
-        // 新增排行榜相關元素
+        // 新增排行榜相關元素 (這些元素雖然還在，但由於排行榜區塊被移除，它們將不會顯示)
         const finalRiskJudgment = document.getElementById('final-risk-judgment');
         const finalProtectionCompletion = document.getElementById('final-protection-completion');
         const finalLuckyEscapes = document.getElementById('final-lucky-escapes');
@@ -1147,10 +1143,10 @@
         const zodiacBlessingImagesContainer = document.getElementById('zodiac-blessing-images-container'); // 所有星座圖片的容器
 
 
-        // 排行榜元素
-        const leaderboardSection = document.getElementById('leaderboard-section');
-        const leaderboardList = document.getElementById('leaderboard-list');
-        const displayUserId = document.getElementById('display-user-id');
+        // 排行榜元素 (這些元素已不再連結到 HTML 中的實際元素，因為該區塊已被移除)
+        // const leaderboardSection = document.getElementById('leaderboard-section'); // 已移除
+        // const leaderboardList = document.getElementById('leaderboard-list'); // 已移除
+        // const displayUserId = document.getElementById('display-user-id'); // 已移除
 
 
         // 獲得新生彈窗的元素
@@ -1878,89 +1874,16 @@
             return title;
         }
 
-        // 保存分數到排行榜
+        // 保存分數到排行榜 (此功能相關的資料庫互動已被移除，因為排行榜區塊已被刪除)
         async function saveScoreToLeaderboard() {
-            if (!db || !userId) {
-                console.error("Firestore not initialized or user not authenticated. Cannot save score.");
-                return;
-            }
-
-            try {
-                const finalScore = calculateFinalScoreAndPercentage(); // 使用百分比作為分數
-                const achievementTitle = getAchievementTitle();
-                const zodiac = player.zodiac;
-                const blessingName = player.zodiacBlessing ? player.zodiacBlessing.name : "無";
-
-                const leaderboardCollectionRef = collection(db, `artifacts/${appId}/public/data/leaderboard`);
-                await addDoc(leaderboardCollectionRef, {
-                    userId: userId,
-                    zodiac: zodiac,
-                    achievementTitle: achievementTitle,
-                    finalScore: finalScore,
-                    blessingName: blessingName,
-                    timestamp: new Date()
-                });
-                console.log("Score saved to leaderboard!");
-            }
-            catch (e) {
-                console.error("Error adding document to leaderboard: ", e);
-            }
+            // No longer saving to leaderboard as the section is removed
+            // console.log("Leaderboard saving functionality is removed.");
         }
 
-        // 載入並顯示排行榜
+        // 載入並顯示排行榜 (此功能已被移除，因為排行榜區塊已被刪除)
         async function loadLeaderboard() {
-            if (!db) {
-                console.error("Firestore not initialized. Cannot load leaderboard.");
-                return;
-            }
-
-            leaderboardList.innerHTML = '<li>載入排行榜中...</li>';
-            // 確保在載入排行榜時，使用者 ID 也同步顯示
-            displayUserId.textContent = userId; 
-
-            try {
-                const leaderboardCollectionRef = collection(db, `artifacts/${appId}/public/data/leaderboard`);
-                const querySnapshot = await getDocs(leaderboardCollectionRef);
-                
-                let scores = [];
-                querySnapshot.forEach((doc) => {
-                    scores.push(doc.data());
-                });
-
-                // 依分數降序排序 (客戶端排序，避免 Firestore 索引問題)
-                scores.sort((a, b) => b.finalScore - a.finalScore); 
-
-                leaderboardList.innerHTML = ''; // 清除載入訊息
-
-                // 顯示前 10 名或所有分數
-                const topScores = scores.slice(0, 10);
-                if (topScores.length === 0) {
-                    leaderboardList.innerHTML = '<li>目前無排行榜資料。</li>';
-                } else {
-                    topScores.forEach((score, index) => {
-                        const li = document.createElement('li');
-                        li.style.cssText = `
-                            background-color: rgba(52, 73, 94, 0.5);
-                            padding: 8px 15px;
-                            margin-bottom: 5px;
-                            border-radius: 5px;
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            font-size: 1em;
-                            ${score.userId === userId ? 'border: 2px solid #f1c40f; box-shadow: 0 0 10px rgba(241, 196, 15, 0.5);' : ''} /* 突出顯示當前使用者 */
-                        `;
-                        li.innerHTML = `
-                            <span>${index + 1}. <strong>${score.zodiac}</strong> (${score.achievementTitle})</span>
-                            <span>分數: <span style="color: #34D399; font-weight: bold;">${score.finalScore}%</span></span>
-                        `;
-                        leaderboardList.appendChild(li);
-                    });
-                }
-            } catch (e) {
-                console.error("Error loading leaderboard: ", e);
-                leaderboardList.innerHTML = '<li>載入排行榜失敗。</li>';
-            }
+            // No longer loading leaderboard as the section is removed
+            // console.log("Leaderboard loading functionality is removed.");
         }
 
         // 遊戲結束
@@ -2016,7 +1939,7 @@
             // 國泰人壽推薦產品和標語
             recommendedProductsText.innerHTML = getRecommendedProducts();
 
-            // 更新排行榜數據
+            // 更新排行榜數據 (這些元素的更新仍然保留，但由於 HTML 區塊被刪除，它們將不會被渲染到畫面上)
             finalRiskJudgment.querySelector('strong').textContent = `${player.riskJudgmentScore} / ${quizQuestions.length}`;
             finalProtectionCompletion.querySelector('strong').textContent = `${player.ownedInsurances.size} / ${availableInsurances.length} 項`;
             finalLuckyEscapes.querySelector('strong').textContent = `${player.luckyEscapesCount} 次`;
@@ -2054,9 +1977,9 @@
                 blessingCardText.textContent = "您沒有獲得特殊的本命星祝福。";
             }
             
-            // 保存分數並載入排行榜
-            saveScoreToLeaderboard();
-            loadLeaderboard();
+            // 由於排行榜區塊已被刪除，不再執行儲存分數和載入排行榜的動作
+            // saveScoreToLeaderboard();
+            // loadLeaderboard();
         }
 
         // 社群分享功能
